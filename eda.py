@@ -32,6 +32,30 @@ def load_data():
 
 @app.cell(hide_code=True)
 def _(mo):
+    mo.md(r"""# **Cleaning Data**""")
+    return
+
+
+@app.function
+@st.cache_data()
+def clean_data_for_scatterplot(df):
+    filtered_df = df.dropna(subset=["weight", "deadlift"])
+    no_outliers_df = filtered_df[
+        (filtered_df["weight"] <= 500) & (filtered_df["deadlift"] <= 1000) &
+        (filtered_df["weight"] >= 100) & (filtered_df["deadlift"] >= 10)
+    ]
+    return no_outliers_df.head(1000)
+
+
+@app.cell
+def _():
+    # Tests
+    # x = clean_data_for_scatterplot(load_data())
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""# **Plots**""")
     return
 
@@ -44,7 +68,7 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""Relação entre peso do atleta (`weight`) e peso levantado no levantamento terra (`deadlift`). """)
+    mo.md(r"""Relação entre peso do atleta (`weight`) e peso levantado no levantamento terra (`deadlift`).""")
     return
 
 
@@ -54,14 +78,15 @@ def generate_scatterplot(df):
         df,
         x="weight",
         y="deadlift",
-        title="Weight vs Deadlift"
+        title="Weight vs Deadlift",
+        trendline="ols"
     )
 
     fig.update_layout(
         xaxis_title="Body Weight (lbs)",
         yaxis_title="Deadlift (lbs)"
     )
-
+    
     return fig
 
 

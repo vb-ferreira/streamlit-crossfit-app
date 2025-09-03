@@ -8,5 +8,6 @@ dependencies = [
     "marimo>=0.15.2",
     "pandas>=2.3.2",
     "plotly>=6.3.0",
+    "statsmodels>=0.14.5",
     "streamlit>=1.49.1",
 ]
