@@ -73,20 +73,22 @@ def _(mo):
 
 
 @app.function
-def generate_scatterplot(df):
+def generate_scatterplot(df, x_axis="weight", y_axis="deadlift", trendline="ols"):
     fig = px.scatter(
         df,
-        x="weight",
-        y="deadlift",
-        title="Weight vs Deadlift",
-        trendline="ols"
+        x=x_axis,
+        y=y_axis,
+        title=f"{x_axis} vs {y_axis}",
+        trendline=trendline,
+        hover_name='name',
+        hover_data=['region', 'affiliate', 'team', 'gender']
     )
 
     fig.update_layout(
-        xaxis_title="Body Weight (lbs)",
-        yaxis_title="Deadlift (lbs)"
+        xaxis_title=x_axis,
+        yaxis_title=y_axis
     )
-    
+
     return fig
 
 
