@@ -1,5 +1,4 @@
 import streamlit as st
-# import pandas as pd
 from eda import load_data, clean_data_for_scatterplot, generate_scatterplot
 
 # Page config
